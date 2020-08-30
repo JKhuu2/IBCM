@@ -1,0 +1,81 @@
+C00F 000	jmp 	start 	skip around the variables, Jennifer Khuu, jtk2eh, 3/24/20, bubblesort.ibcm
+0000 001 i 	dw 	0 	int i
+0000 002 j 	dw 	0 	int j
+004C 003 a 	dw 	0 	int a[]
+0005 004 size 	dw 	0	size=5
+0000 005 zero 	dw 	0
+0001 006 one 	dw 	1
+0000 007 curr 	dw		current index
+0000 008 prev 	dw		previous index
+3000 009 ldit 	dw	3000	load element
+4000 00A sdit 	dw 	4000 	store element
+0000 00B 			extra spaces
+0000 00C
+0000 00D
+0000 00E
+3004 00F start	load	size	size=size-1
+6006 010 	sub	1
+4002 011 	store 	j
+3004 012 iloop	load	size	if(i>=size) go to exit
+6001 013 	sub 	i
+E04B 014	jumpl 	exit
+D04B 015 	jumpe 	exit
+3002 016 jloop	load 	j	if(i>=j), increment i
+6001 017 	sub 	i
+E03E 018	jumpl	 	go to i++ 
+D03E 019	jumpe		go to i++
+3009 01A 	load 	ldit   	load a[j]
+5003 01B 	add 	a
+5002 01C 	add 	j
+401E 01D	store 	doit	plant the instruction into the program
+0000 01E doit 	dw 	0
+4007 01F 	store 	curr
+C026 020			jump to line 26
+0000 021			extra spaces
+0000 022
+0000 023
+0000 024
+0000 025
+3009 026	load	ldit	load a[j-1]
+5003 027 	add 	a
+5002 028 	add 	j
+6006 029 	sub 	1
+402B 02A 	store 	doit
+0000 02B doit 	dw 	0
+4008 02C 	store 	prev	if(A[j-1]-A[j]<=0), decrement j
+6007 02D 	sub 	curr
+E043 02E 	jumpl		go to j--
+D043 02F 	jumpe 		go to j--
+300A 030 	load 	sdit 	a[j] = prev
+5003 031 	add 	a
+5002 032 	add 	j
+4035 033 	store	swap1 = swapint1
+3008 034 	load 	prev
+0000 035 swap1 	dw 	0
+300A 036 	load 	sdit	a[j-1] = curr
+5003 037 	add 	a
+5002 038 	add 	j
+6006 039 	sub 	1
+403C 03A 	store	swap2 = swapint2
+3007 03B 	load 	prev
+0000 03C swap2 dw 	0
+C043 03D			go to j--	
+3001 03E	load 	i	i++
+5006 03F	add	1	
+4001 040	store 	i
+C00F 041	jump 	iloop
+C043 042
+3002 043	load	j	j--
+6006 044 	sub	1
+4002 045 	store	j
+C016 046 	jump	jloop
+C04B 047			
+0000 048 	
+0000 049 	
+0000 04A 	
+0000 04B 	halt		halt program
+FFFC 04C a0	dw	-4	a[0] = -4
+0003 04D a1	dw	3	a[1] = 3
+0005 04E a2 	dw 	5 	a[2] = 5
+FFFB 04F a3	dw	-5 	a[3] = -5
+0010 050 a4 	dw 	10 	a[4] = 10
